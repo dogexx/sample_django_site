@@ -11,6 +11,10 @@ def listcustomers(request):
     # 返回一个QuerySet对象，包含所有的表记录
     # 每条表记录都是一个字典对象，key是字段名，value是字段值
     qs = Customer.objects.values()
+
+    ph = request.GET.get('phonenumber', None)
+    if ph:
+        qs.filter(phonenumber=ph)
     ret_str = ''
     for customer in qs:
         for name, value in customer.items():
